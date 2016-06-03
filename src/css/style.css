@@ -1,0 +1,100 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.add-border {
+  border: 1px solid red;
+}
+
+.pad-round {
+  padding: 1em;
+}
+
+.hori-button {
+  height: 7%;
+}
+
+.top-space {
+  height: 35%;
+}
+
+table {
+  border: 2px solid red;
+}
+
+.mid-section {
+  height: 51%;
+}
+
+@media screen and (min-width: 450px){
+  body {
+    width: 60%;
+    margin: auto;
+  }
+}
+
+.vert-button {
+  /*height: 80%;*/
+  width: 8%;
+}
+
+.column {
+  height: 10em;
+  border: 1px solid red;
+}
+
+.col-main {
+  height: 70%;
+  width: 85%;
+}
+
+.height-100 {
+  height: 100%;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.red-text {
+  color: #ff0000;
+}
+
+.give-margin {
+  margin-top: 8em;
+}
+
+.red {
+  color: red;
+}
+
+.small-top-margin {
+  margin-top: 3em;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.alert.ng-hide-remove {
+
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    -webkit-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+
+    display: block !important;
+    opacity: 1;
+}
+
+
+.alert.ng-hide {
+    opacity: 0;
+}
+
+.v-align {
+  margin-top: 0.8em;
+}
