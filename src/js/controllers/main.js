@@ -19,6 +19,7 @@
         canAdd: true
       }
       $scope.gameObj = [];
+      $scope.backups = [];
 
       for (var i = 0; i < $scope.GRID_LENGTH; i++){
         $scope.gameObj[i] = []
@@ -44,7 +45,6 @@
     function postMove(){
       fillInColumns(1);
       resetCanAdd();
-      console.log($scope.gameObj)
     }
 
     function resetCanAdd(){
@@ -57,26 +57,34 @@
 
     $scope.moveUp = function(){
       verticalPoint = 0 + 1
+      $scope.backups.push(angular.copy($scope.gameObj));
       MovementService.mover(verticalPoint, 0, verticalPoint, "up", false, $scope.gameObj, $scope.GRID_LENGTH)
       postMove();
     }
 
     $scope.moveLeft = function(){
       verticalPoint = 0 + 1
+      $scope.backups.push(angular.copy($scope.gameObj));
       MovementService.mover(0, verticalPoint, verticalPoint, "left", false, $scope.gameObj, $scope.GRID_LENGTH)
       postMove();
     }
 
     $scope.moveDown = function(){
       verticalPoint = $scope.GRID_LENGTH - 2;
+      $scope.backups.push(angular.copy($scope.gameObj));
       MovementService.mover(verticalPoint, 0, verticalPoint, "down", false, $scope.gameObj, $scope.GRID_LENGTH)
       postMove();
     }
 
     $scope.moveRight = function(){
       verticalPoint = $scope.GRID_LENGTH - 2;
+      $scope.backups.push(angular.copy($scope.gameObj));
       MovementService.mover(0, verticalPoint, verticalPoint, "right", false, $scope.gameObj, $scope.GRID_LENGTH)
       postMove();
+    }
+
+    $scope.undo = function(){
+      $scope.gameObj = $scope.backups.pop()
     }
 
     initValues();

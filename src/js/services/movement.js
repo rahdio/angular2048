@@ -50,13 +50,11 @@
               var currentCell = gameObj[i][j]
 
               if (currentCell.number == 0) continue
-              rowMoved = self.processMove(upperCell, currentCell)
+              processMoveResult = self.processMove(upperCell, currentCell)
+              rowMoved = rowMoved ? rowMoved : processMoveResult
             }
             if (!rowMoved) continue
             if (i != verticalPoint) self.mover(i-1, 0, verticalPoint, direction, true, gameObj, GRID_LENGTH)
-            else{
-              if (recursive) break;
-            }
           }
           break;
 
@@ -68,13 +66,11 @@
               var currentCell = gameObj[i][j]
 
               if (currentCell.number == 0) continue
-              rowMoved = self.processMove(upperCell, currentCell)
+              processMoveResult = self.processMove(upperCell, currentCell)
+              rowMoved = rowMoved ? rowMoved : processMoveResult
             }
-            if (!rowMoved) continue
+            if (!rowMoved) continue;
             if (i != verticalPoint) self.mover(i+1, 0, verticalPoint, direction, true, gameObj, GRID_LENGTH)
-            else{
-              if (recursive) break;
-            }
           }
           break;
 
@@ -86,13 +82,11 @@
               var currentCell = gameObj[i][j]
 
               if (currentCell.number == 0) continue
-              rowMoved = self.processMove(upperCell, currentCell)
+              processMoveResult = self.processMove(upperCell, currentCell)
+              rowMoved = rowMoved ? rowMoved : processMoveResult
             }
             if (!rowMoved) continue
             if (j != verticalPoint) self.mover(0, j-1, verticalPoint, direction, true, gameObj, GRID_LENGTH)
-            else{
-              if (recursive) break;
-            }
           }
           break;
         case "right":
@@ -103,13 +97,11 @@
               var currentCell = gameObj[i][j]
 
               if (currentCell.number == 0) continue
-              rowMoved = self.processMove(upperCell, currentCell)
+              processMoveResult = self.processMove(upperCell, currentCell)
+              rowMoved = rowMoved ? rowMoved : processMoveResult
             }
             if (!rowMoved) continue
             if (j != verticalPoint) self.mover(0, j+1, verticalPoint, direction, true, gameObj, GRID_LENGTH)
-            else{
-              if (recursive) break;
-            }
           }
           break;
       }

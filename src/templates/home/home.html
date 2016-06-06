@@ -1,6 +1,7 @@
 <div class="top-space text-center">
   <div class="row"><h4>The classic 2048 game in Angular</h4></div>
-  <img src="img/logo.jpeg" />
+  <div class="row"><img src="img/logo.jpeg"/></div>
+  <div class="row"><button ng-click="undo()" ng-show = "backups.length > 0" class="pull-right btn btn-primary">Undo</button></div>
 </div>
 <div class="row hori-button">
   <button type="button" ng-click="moveUp()" class="btn btn-info btn-block height-100" aria-label="Up">
