@@ -21,6 +21,10 @@ body, html {
   height: 35%;
 }
 
+.fixed-width {
+  width: 20%;
+}
+
 table {
   border: 2px solid red;
 }

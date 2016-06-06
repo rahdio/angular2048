@@ -2,24 +2,44 @@
   angular.module("2048.services")
   .factory("MovementService", MovementService)
 
-  function MovementService(){
+  function MovementService(RandomGenerator){
     var self = {}
     self.processMove = function(upperCell, currentCell) {
       if (upperCell.number == 0){
-        upperCell.number = currentCell.number
-        currentCell.number = 0
+        upperCell.number = currentCell.number;
+        currentCell.number = 0;
+        currentCell.canAdd = true;
+        upperCell.canAdd = true;
+        self.updateGenerator(currentCell, upperCell);
+
         return true;
       }else{
-        if (upperCell.number == currentCell.number && upperCell.canAdd){
+        if (upperCell.number == currentCell.number && currentCell.canAdd && upperCell.canAdd){
           upperCell.number *= 2
           currentCell.number = 0;
-          upperCell.canAdd = false
+          upperCell.canAdd = false;
+          currentCell.canAdd = true;
+          self.updateGenerator(currentCell, upperCell);
+
           return true;
         }
       }
 
       return false;
     }; 
+
+    self.updateGenerator = function(currentCell, upperCell){
+      RandomGenerator.addGridpair({
+        iGrid: currentCell.iGrid,
+        jGrid: currentCell.jGrid
+      });
+
+      RandomGenerator.removeGridpair({
+        iGrid: upperCell.iGrid,
+        jGrid: upperCell.jGrid
+      });
+    };
+
     self.mover = function(startI, startJ, verticalPoint, direction, recursive, gameObj, GRID_LENGTH){
       switch(direction){
         case "up":
@@ -97,4 +117,6 @@
 
     return self;
   }
+
+  MovementService.$inject = ["RandomGenerator"]
 })();

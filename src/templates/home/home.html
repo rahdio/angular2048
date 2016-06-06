@@ -15,8 +15,8 @@
   <div class="col-xs-8 col-md-8 height-100">
     <table border=1 class="width-100 height-100 text-center">
       <tr data-ng-repeat = "i in range()">
-        <td data-ng-repeat = "j in range()">
-          {{gameObj[i][j].number}}
+        <td data-ng-repeat = "j in range()" class="fixed-width">
+          {{gameObj[i][j].number | value}}
         </td>
       </tr>
     </table>
