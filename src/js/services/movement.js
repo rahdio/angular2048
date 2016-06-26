@@ -2,7 +2,7 @@
   angular.module("2048.services")
   .factory("MovementService", MovementService)
 
-  function MovementService(RandomGenerator){
+  function MovementService(RandomGenerator, GRID_LENGTH){
     var self = {}
     self.processMove = function(upperCell, currentCell) {
       if (upperCell.number == 0){
@@ -40,7 +40,7 @@
       });
     };
 
-    self.mover = function(startI, startJ, verticalPoint, direction, recursive, gameObj, GRID_LENGTH){
+    self.mover = function(startI, startJ, verticalPoint, direction, recursive, gameObj){
       switch(direction){
         case "up":
           for (var i = startI; i < GRID_LENGTH; i++){
@@ -54,7 +54,7 @@
               rowMoved = rowMoved ? rowMoved : processMoveResult
             }
             if (!rowMoved) continue
-            if (i != verticalPoint) self.mover(i-1, 0, verticalPoint, direction, true, gameObj, GRID_LENGTH)
+            if (i != verticalPoint) self.mover(i-1, 0, verticalPoint, direction, true, gameObj)
           }
           break;
 
@@ -70,7 +70,7 @@
               rowMoved = rowMoved ? rowMoved : processMoveResult
             }
             if (!rowMoved) continue;
-            if (i != verticalPoint) self.mover(i+1, 0, verticalPoint, direction, true, gameObj, GRID_LENGTH)
+            if (i != verticalPoint) self.mover(i+1, 0, verticalPoint, direction, true, gameObj)
           }
           break;
 
@@ -86,7 +86,7 @@
               rowMoved = rowMoved ? rowMoved : processMoveResult
             }
             if (!rowMoved) continue
-            if (j != verticalPoint) self.mover(0, j-1, verticalPoint, direction, true, gameObj, GRID_LENGTH)
+            if (j != verticalPoint) self.mover(0, j-1, verticalPoint, direction, true, gameObj)
           }
           break;
         case "right":
@@ -101,7 +101,7 @@
               rowMoved = rowMoved ? rowMoved : processMoveResult
             }
             if (!rowMoved) continue
-            if (j != verticalPoint) self.mover(0, j+1, verticalPoint, direction, true, gameObj, GRID_LENGTH)
+            if (j != verticalPoint) self.mover(0, j+1, verticalPoint, direction, true, gameObj)
           }
           break;
       }
@@ -110,5 +110,5 @@
     return self;
   }
 
-  MovementService.$inject = ["RandomGenerator"]
+  MovementService.$inject = ["RandomGenerator", "GRID_LENGTH"]
 })();

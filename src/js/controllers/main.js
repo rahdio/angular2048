@@ -2,38 +2,35 @@
   var callSize = 0;
   angular.module("2048.controllers")
   .controller("MainCtrl", MainCtrl)
-  function MainCtrl($scope, $timeout, MovementService, RandomGenerator){
-    $scope.range = function(){
-      arr_range = []
-      for (var i = 0; i < $scope.GRID_LENGTH; i++)
-        arr_range.push(i)
-      return arr_range
-    }
+  function MainCtrl($scope, $timeout, MovementService, RandomGenerator, Helpers, GRID_LENGTH){
+    $scope.range = Helpers.range;
 
     function initValues(){
-      $scope.GRID_LENGTH = 4
-      $scope.verticalLimit = $scope.GRID_LENGTH - 2;
-
-      var columnObj = {
+      $scope.columnObj = {
         number: 0,
         canAdd: true
       }
+
       $scope.gameObj = [];
       $scope.backups = [];
       $scope.gameDone = false;
 
-      for (var i = 0; i < $scope.GRID_LENGTH; i++){
+      generateGrid();
+
+      RandomGenerator.findEmpty($scope.gameObj);
+      fillInColumns(2);
+    }
+
+    function generateGrid(){
+      for (var i = 0; i < GRID_LENGTH; i++){
         $scope.gameObj[i] = []
-        for (var j = 0; j < $scope.GRID_LENGTH; j++){
-          var column = angular.copy(columnObj)
+        for (var j = 0; j < GRID_LENGTH; j++){
+          var column = angular.copy($scope.columnObj)
           column.iGrid = i;
           column.jGrid = j;
           $scope.gameObj[i].push(column)
         }
       }
-
-      RandomGenerator.findEmpty($scope.gameObj);
-      fillInColumns(2);
     }
 
     function fillInColumns(numberOfTimes){
@@ -57,23 +54,23 @@
     }
 
     function resetCanAdd(){
-      for (var i = 0; i < $scope.GRID_LENGTH; i++){
-        for (var j = 0; j < $scope.GRID_LENGTH; j++){
+      for (var i = 0; i < GRID_LENGTH; i++){
+        for (var j = 0; j < GRID_LENGTH; j++){
           $scope.gameObj[i][j].canAdd = true
         }
       }
     }
 
     function transverseForMove(){
-      for (var i = 0; i < $scope.GRID_LENGTH; i++){
-        for (var j = 0; j < $scope.GRID_LENGTH - 1; j++){
+      for (var i = 0; i < GRID_LENGTH; i++){
+        for (var j = 0; j < GRID_LENGTH - 1; j++){
           if ($scope.gameObj[i][j] == $scope.gameObj[i][j+1])
             return false;
         }
       }
 
-      for (var j = 0; j < $scope.GRID_LENGTH; j++){
-        for (var i = 0; i < $scope.GRID_LENGTH - 1; i++){
+      for (var j = 0; j < GRID_LENGTH; j++){
+        for (var i = 0; i < GRID_LENGTH - 1; i++){
           if ($scope.gameObj[i][j] == $scope.gameObj[i+1][j])
             return false;
         }
@@ -85,28 +82,28 @@
     $scope.moveUp = function(){
       verticalPoint = 0 + 1
       preMove();
-      MovementService.mover(verticalPoint, 0, verticalPoint, "up", false, $scope.gameObj, $scope.GRID_LENGTH)
+      MovementService.mover(verticalPoint, 0, verticalPoint, "up", false, $scope.gameObj)
       postMove();
     }
 
     $scope.moveLeft = function(){
       verticalPoint = 0 + 1
       preMove();
-      MovementService.mover(0, verticalPoint, verticalPoint, "left", false, $scope.gameObj, $scope.GRID_LENGTH)
+      MovementService.mover(0, verticalPoint, verticalPoint, "left", false, $scope.gameObj)
       postMove();
     }
 
     $scope.moveDown = function(){
-      verticalPoint = $scope.GRID_LENGTH - 2;
+      verticalPoint = GRID_LENGTH - 2;
       preMove();
-      MovementService.mover(verticalPoint, 0, verticalPoint, "down", false, $scope.gameObj, $scope.GRID_LENGTH)
+      MovementService.mover(verticalPoint, 0, verticalPoint, "down", false, $scope.gameObj)
       postMove();
     }
 
     $scope.moveRight = function(){
-      verticalPoint = $scope.GRID_LENGTH - 2;
+      verticalPoint = GRID_LENGTH - 2;
       preMove();
-      MovementService.mover(0, verticalPoint, verticalPoint, "right", false, $scope.gameObj, $scope.GRID_LENGTH)
+      MovementService.mover(0, verticalPoint, verticalPoint, "right", false, $scope.gameObj)
       postMove();
     }
 
@@ -117,8 +114,6 @@
     $scope.newGame = function(){
       initValues();
     }
-
-    // initValues();
   }
-  MainCtrl.$inject = ["$scope", "$timeout", "MovementService", "RandomGenerator"]
+  MainCtrl.$inject = ["$scope", "$timeout", "MovementService", "RandomGenerator", "Helpers", "GRID_LENGTH"]
 })();
